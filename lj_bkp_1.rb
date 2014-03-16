@@ -12,10 +12,9 @@ class Lj_bckp
   end
 
   def lj_login
-	end
+  end
 
-	def lj_save
-
+  def lj_save
     loop do
       text_url = @page.uri.to_s.scan(%r{com/(.*)}).join
       @page.save text_url
@@ -24,10 +23,9 @@ class Lj_bckp
       p later_page
       break if later_page.nil?
       @page = later_page.click
-	  end
-
+    end
   end
-
+  
 end
 
 tech = Lj_bckp.new
