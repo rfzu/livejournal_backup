@@ -16,11 +16,9 @@ class Lj_bckp
 
   def lj_save
     loop do
-      text_url = @page.uri.to_s.scan(%r{com/(.*)}).join
+      text_url = URI(@page.uri).path[1..-1]
       @page.save text_url
-      later_page = @page.link_with(:text => "Previous Entry") 
-      later_page ||= @page.link_with(:text => "Previous")
-      p later_page
+      later_page = @page.link_with(:text => "Previous Entry").nil? ? @page.link_with(:text => "Previous") : @page.link_with(:text => "Previous Entry")
       break if later_page.nil?
       @page = later_page.click
     end
@@ -29,4 +27,4 @@ class Lj_bckp
 end
 
 tech = Lj_bckp.new
-tech.lj_savep
+tech.lj_save
